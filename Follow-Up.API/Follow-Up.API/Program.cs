@@ -9,7 +9,7 @@ var appSettings = new AppSettings();
 builder.Configuration.Bind(nameof(AppSettings), appSettings);
 builder.Services.AddSingleton(appSettings);
 
-builder.Services.AddApplicationLayerAPI(builder.Configuration["ConnectionStrings:SqlConnection"]);
+builder.Services.AddApplicationLayerAPI(builder.Configuration["ConnectionStrings:SqlConnection"], builder.Configuration);
 
 
 var app = builder.Build();
@@ -20,6 +20,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("corsapp");
 
 var localizationOptions = app.Services.GetService<IOptions<RequestLocalizationOptions>>();
 app.UseRequestLocalization(localizationOptions.Value);
