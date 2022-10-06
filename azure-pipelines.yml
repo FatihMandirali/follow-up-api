@@ -14,4 +14,4 @@ variables:
 
 steps:
 - script: dotnet build .\Follow-Up.API\ --configuration $(buildConfiguration)
-  displayName: 'dotnet build .\Follow-Up.API\ $(buildConfiguration)'
+  displayName: 'dotnet build $(buildConfiguration)'
