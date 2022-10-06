@@ -123,4 +123,7 @@
   <data name="generic_notfound_title" xml:space="preserve">
     <value>Record Not Found</value>
   </data>
+  <data name="password_invalid" xml:space="preserve">
+    <value>Password Invalid</value>
+  </data>
 </root>

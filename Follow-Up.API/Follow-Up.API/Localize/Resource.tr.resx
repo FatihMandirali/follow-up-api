@@ -123,4 +123,7 @@
   <data name="generic_notfound_title" xml:space="preserve">
     <value>Kayıt Bulunamadı</value>
   </data>
+  <data name="password_invalid" xml:space="preserve">
+    <value>Şifre doğrulanamadı</value>
+  </data>
 </root>

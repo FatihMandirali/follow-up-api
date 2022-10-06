@@ -16,6 +16,9 @@ using Microsoft.OpenApi.Models;
 using System.Globalization;
 using System.Reflection;
 using System.Text;
+using FluentValidation.AspNetCore;
+using Follow_Up.Application.Enums;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Follow_Up.API.Extensions
 {
@@ -23,10 +26,17 @@ namespace Follow_Up.API.Extensions
     {
         public static IServiceCollection AddApplicationLayerAPI(this IServiceCollection services, string connectionString, IConfiguration configuration)
         {
-
             #region Default
-            services.AddControllers();
+            services.AddControllers(options =>
+            {
+                options.Filters.Add(typeof(ValidateModelStateAttribute));
+            })
+            .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Program>());
             services.AddEndpointsApiExplorer();
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.SuppressModelStateInvalidFilter = true;
+            });
             #endregion
 
             #region Cors
@@ -113,6 +123,13 @@ namespace Follow_Up.API.Extensions
 
             #region Mediatr
             services.AddMediatR(typeof(Follow_Up.Application.Enums.ProcessStatusEnum).Assembly);
+            #endregion
+
+            #region FluentValidation
+            services.AddFluentValidation(conf =>
+            {
+                conf.RegisterValidatorsFromAssembly(typeof(RolesEnum).Assembly);
+            });
             #endregion
 
             #region MsSql

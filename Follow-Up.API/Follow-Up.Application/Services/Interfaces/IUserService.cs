@@ -11,5 +11,6 @@ namespace Follow_Up.Application.Services.Interfaces
     public interface IUserService : IRepository<User>
     {
         Task<User> FindUserById(int id);
+        Task<User> FindUserByEmail(string email);
     }
 }

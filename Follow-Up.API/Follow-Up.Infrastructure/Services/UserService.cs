@@ -16,6 +16,12 @@ namespace Follow_Up.Infrastructure.Services
         {
         }
 
+        public async Task<User> FindUserByEmail(string email)
+        {
+            var user = await FindAsync(x => x.Email == email);
+            return user;
+        }
+
         public async Task<User> FindUserById(int id)
         {
             var user = await FindAsync(x => x.Id == id);

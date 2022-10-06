@@ -33,7 +33,15 @@ namespace Follow_Up.API.Controllers
         public async Task<BaseResponse<object>> PostLogin([FromBody] PostLoginQuery postLogin)
         {
             var response = await _mediator.Send(postLogin);
-            return new BaseResponse<object>(ProcessStatusEnum.Success, null, response);
+            if(response.Item1 is null)
+            {
+                var friendly = new FriendlyMessage
+                {
+                    Message = _localizer[response.Item2].Value
+                };
+                return new BaseResponse<object>(ProcessStatusEnum.InternalServerError, friendly, null);
+            }
+            return new BaseResponse<object>(ProcessStatusEnum.Success, null, response.Item1);
         }
     }
 }
